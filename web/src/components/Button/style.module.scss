@@ -1,0 +1,22 @@
+@use './../../styles/var.scss';
+
+#button {
+  height: 35px;
+  padding: 0 1rem;
+  font-size: .9rem;
+  border-radius: 8px;
+  border: 1px solid var.$gray800;
+  outline: 1;
+  background-color: var.$gray900;
+  color: var.$title;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  &:hover:not(:disabled) {
+    border: 1px solid var.$text-primary;
+  }
+  &:disabled {
+    opacity: .5;
+    cursor: initial;
+  }
+}
