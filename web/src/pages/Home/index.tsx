@@ -46,7 +46,6 @@ export default function Home() {
   }
   
   useEffect(() => {
-    console.log('Chave de API:', JSON.stringify(import.meta.env.VITE_API_KEY));
     setIsLoading(true)
     getTrailers();
   }, []);
@@ -56,8 +55,6 @@ export default function Home() {
       setCurrent(trailers[0])
       setIsLoading(false)
     }
-    console.log(current)
-
   }, [trailers])
   
   useKeyPressEvent('ArrowRight', handleNext)
