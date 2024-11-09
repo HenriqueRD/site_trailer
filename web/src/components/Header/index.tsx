@@ -1,4 +1,4 @@
-import { MagnifyingGlass, Tilde } from '@phosphor-icons/react'
+import { MagnifyingGlass } from '@phosphor-icons/react'
 import style from './style.module.scss'
 import { FormEvent, useState } from 'react'
 
