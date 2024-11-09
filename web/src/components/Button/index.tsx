@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, ReactNode } from 'react'
 import style from './style.module.scss'
 
 type ButtonProps =  ButtonHTMLAttributes<HTMLButtonElement> & {
-  text: string
+  text?: string
   children?: ReactNode
 }
 

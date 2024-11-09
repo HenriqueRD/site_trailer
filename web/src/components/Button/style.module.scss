@@ -19,4 +19,7 @@
     opacity: .5;
     cursor: initial;
   }
+  &.notPrimary {
+    background-color: var.$title;
+  }
 }

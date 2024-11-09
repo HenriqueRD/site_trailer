@@ -47,6 +47,12 @@ button {
   width: 100%;
   margin: 0 auto;
 }
+.flex {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: center;
+}
 ::placeholder {
   color: var.$gray200; /* Define a cor do placeholder */
 }

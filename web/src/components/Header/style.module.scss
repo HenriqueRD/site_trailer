@@ -1,18 +1,57 @@
 @use './../../styles/var.scss';
 
-#button {
-  height: 44px;
-  padding: 0 1rem;
-  font-size: .9rem;
-  border-radius: 8px;
-  border: 1px solid transparent;
+#header {
   background-color: var.$gray900;
-  color: var.$title;
-  &:hover:not(:disabled) {
-    border: 1px solid var.$text-primary;
-  }
-  &:disabled {
-    opacity: .5;
-    cursor: initial;
+  border-bottom: 2px solid var.$gray600;
+
+  .content {
+    padding: 1rem;
+
+    .logoForm {
+      display: flex;
+      align-items: center;
+      gap: 5rem;
+
+      form {
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        input {
+          width: 260px;
+          font-size: .9rem;
+          font-weight: 500;
+          background-color: var.$title;
+          color: var.$gray900;
+          height: 30px;
+          padding: 0 1rem;
+          border-radius: 8px;
+          border: 1px solid var.$gray800;
+
+          &:hover {
+            outline: 1px solid white;
+            outline-offset: 1px;
+          }
+        }
+        button {
+          position: relative;
+          left: -40px;
+          top: 2px;
+          border-radius: 8px;
+          height: 40px;
+          width: 35px;
+          color: var.$gray900;
+
+          svg {
+            color: var.$gray900;
+          }
+          &:hover {
+            svg {
+              opacity: .5;
+            }
+          }
+        }
+      }
+    }
   }
 }
