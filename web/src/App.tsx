@@ -1,9 +1,11 @@
-import Home from './pages/Home'
+import { Toaster } from 'react-hot-toast'
+import Router from './router'
 
 function App() {
   return (
     <>
-      <Home />
+      <Router />
+      <div><Toaster position="top-center" reverseOrder={false} /></div>
     </>
   )
 }

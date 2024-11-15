@@ -1,11 +1,11 @@
 @use './../../styles/var.scss';
 
 #button {
-  height: 35px;
+  height: 32px;
   padding: 0 1rem;
   font-size: .9rem;
-  border-radius: 8px;
-  border: 1px solid var.$gray800;
+  border-radius: 4px;
+  border: .07rem solid var.$gray800;
   outline: 1;
   background-color: var.$gray900;
   color: var.$title;
@@ -13,13 +13,19 @@
   align-items: center;
   gap: .5rem;
   &:hover:not(:disabled) {
-    border: 1px solid var.$text-primary;
+    border: 1px solid var.$text-secondary;
+    color: var.$white;
   }
   &:disabled {
     opacity: .5;
     cursor: initial;
   }
   &.notPrimary {
-    background-color: var.$title;
+    background-color: var.$gray900;
+    color: var.$text-primary;
+    font-weight: 300;
+    letter-spacing: 1px;
+    border: .07rem solid var.$gray300;
+    filter: brightness(150%);
   }
 }

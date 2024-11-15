@@ -32,14 +32,13 @@ textarea, a, select, label  {
 a {
   text-decoration: none;
 }
-input, select, button, a {
+select, button, a {
   transition: 200ms;
   border: none;
 }
 button {
   background-color: transparent;
   border: none;
-  outline: none;
   cursor: pointer;
 }
 .container {
@@ -54,7 +53,7 @@ button {
   justify-content: center;
 }
 ::placeholder {
-  color: var.$gray200; /* Define a cor do placeholder */
+  color: var.$gray200;
 }
 h1, h2, h3 {
   color: var.$title;
