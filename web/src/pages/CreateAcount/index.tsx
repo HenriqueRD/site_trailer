@@ -3,22 +3,22 @@ import style from './style.module.scss'
 import banner from './../../../public/banner.webp'
 import Button from '../../components/Button'
 import { Link, useNavigate } from 'react-router-dom'
-import { FormEvent, useContext, useState } from 'react'
-import { AuthContext } from '../../contexts/AuthContext'
-import toast from 'react-hot-toast'
+import { FormEvent, useState } from 'react'
 import { ArrowLeft } from '@phosphor-icons/react'
 
 export default function CreateAcount() {
 
-  const navigate = useNavigate()
+  const nav = useNavigate()
   const [ email, setEmail ] = useState('')
   const [ username, setUsername ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ loading, setLoading ] = useState(false)
 
   function handleCreateAcount(event: FormEvent) {
+    setLoading(false)
     event.preventDefault()
     if(email.trim() === '' || password.trim() === '') return
+    nav("/login")
   }
 
   return (
