@@ -1,6 +1,6 @@
 @use './../../styles/var.scss';
 
-#login {
+#createAcount {
   display: flex;
   width: 100%;
   height: calc(100vh - 66px);
@@ -41,12 +41,25 @@
       flex-direction: column;
       gap: 2rem;
 
+      .headerForm {
+        gap: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        a {
+          color: var.$text-secondary;
+
+          &:hover {
+            color: var.$white;
+          }
+        }
+      }
       .inputs {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
       }
-
       .box {
         display: flex;
         flex-direction: column;
@@ -78,15 +91,11 @@
         flex-direction: column;
         gap: .3rem;
 
-        a {
+        span {
           padding-left: .5rem;
           color: var.$text-secondary;
-          font-size: .8rem;
-
-          &:hover {
-            font-weight: 500;
-            color: var.$white;
-          }
+          font-size: .7rem;
+          font-weight: 500;
         }
       }
     }

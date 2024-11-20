@@ -1,9 +1,9 @@
-import { MagnifyingGlass } from '@phosphor-icons/react'
+import { MagnifyingGlass, Power } from '@phosphor-icons/react'
 import style from './style.module.scss'
 import { FormEvent, useContext, useState } from 'react'
 import Button from '../Button'
 import { Link } from 'react-router-dom'
-import { AuthContext } from '../../context/AuthContext'
+import { AuthContext } from '../../contexts/AuthContext'
 
 type HeaderProps = {
   login?: boolean
@@ -12,7 +12,7 @@ type HeaderProps = {
 
 export default function Header({ login = false, searchTitle } : HeaderProps) {
   const [ title, setTitle ] = useState('')
-  const { isAuthenticated, user } = useContext(AuthContext)
+  const { isAuthenticated, logOut, user } = useContext(AuthContext)
 
   function handleForm(event : FormEvent) {
     event.preventDefault()
@@ -28,7 +28,7 @@ export default function Header({ login = false, searchTitle } : HeaderProps) {
       <div className="container">
         <div className={style.content}>
           <div className={style.logoForm}>
-            <Link to="/">
+            <Link to="/" title='Home'>
               <h2>T_TRACker</h2>
             </Link>
             {
@@ -46,7 +46,13 @@ export default function Header({ login = false, searchTitle } : HeaderProps) {
               </Link>
             ) : (
               isAuthenticated ? (
-                <strong>{user.username}</strong>
+                <div className={style.userInfo}>
+                  <span>{user.username[0]}</span>
+                  <div>
+                    <p>{user.username}</p>
+                    <button onClick={logOut}><Power size={16}  weight='bold'/>logOut</button>
+                  </div>
+                </div>
               ) : (
                 <Link to="/login">
                   <Button isPrimary={false} text='Login'/>

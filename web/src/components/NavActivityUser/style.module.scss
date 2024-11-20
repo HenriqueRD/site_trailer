@@ -1,0 +1,35 @@
+@use './../../styles/var.scss';
+
+#navActivityUser {
+  width: 100%;
+  border-bottom: 2px solid var.$gray600;
+  padding-bottom: .5rem;
+  display: flex;
+  justify-content: center;
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    gap: 1.5rem;
+
+    button {
+      &:disabled {
+        opacity: .7;
+        font-weight: 300;
+      }
+      &:hover:not(:disabled) { 
+        font-weight: 600;
+        color: var.$white;
+      }
+      font-weight: 500;
+      font-size: .9rem;
+      color: var.$text-primary;
+      
+      &.isActive {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var.$white !important;
+      }
+    }
+  }
+}

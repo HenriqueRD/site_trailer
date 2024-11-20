@@ -31,7 +31,19 @@ export function AuthProvider({ children } : AuthProviderProps) {
 	const [ isAuthenticated, setIsAuthenticated ] = useState(false)
 	const [ user, setUser ] = useState<UserProps>({} as any)
 
+  async function getUser() {
+    try {
+      const { data } = await api.get("UserAccount/getByToken")
+      setUser(data)
+      setIsAuthenticated(true)
+    } catch {
+      setUser({} as any)
+      setIsAuthenticated(false)
+    }
+  }
+	
 	useEffect(() => {
+    	getUser()
 	}, [])
 	
 	async function signIn(form : SignInProps) : Promise<string> {
@@ -40,9 +52,9 @@ export function AuthProvider({ children } : AuthProviderProps) {
 				email: form.email,
 				password: form.password
 			})
-
 			setUser(data.user)
 			setIsAuthenticated(true)
+			api.defaults.headers.Authorization = `Bearer ${data.token}`
 			Cookies.set("token", data.token)
 
 			return new Promise((res) => {
@@ -51,6 +63,7 @@ export function AuthProvider({ children } : AuthProviderProps) {
 		} catch {
 			setUser({} as any)
 			setIsAuthenticated(false)
+
 			return new Promise((__, rej) => {
 				rej("Email or Password invalid!")	
 			})
@@ -59,6 +72,8 @@ export function AuthProvider({ children } : AuthProviderProps) {
 
 	function logOut() {
 		setIsAuthenticated(false)
+		api.defaults.headers.Authorization = null
+		Cookies.remove('token')
 	}
 
 	return (

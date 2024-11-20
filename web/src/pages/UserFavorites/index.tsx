@@ -1,10 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react'
-import { useKeyPressEvent } from 'react-use'
 import style from './style.module.scss'
 import { MagnifyingGlass } from '@phosphor-icons/react'
 import Button from '../../components/Button'
-import LoadingSpin from "react-loading-spin";
-import { format } from 'date-fns'
 import { api } from '../../api/axios'
 import Header from '../../components/Header'
 import NavActivityUser from '../../components/NavActivityUser'
@@ -18,7 +15,7 @@ type TrailersProps = {
   trailerUrl: string
 }
 
-export default function Home() {
+export default function UserWatchlist() {
 
   const [ trailers, setTrailers ] = useState<TrailersProps[]>([])
   const [ current, setCurrent ] = useState<TrailersProps>({} as any);
@@ -26,7 +23,6 @@ export default function Home() {
   const [ typeSelect, setTypeSelect ] = useState("genre")
   const [ currentSelect, setCurrentSelect ] = useState("")
 
-  const date = new Date(current.releaseDate || new Date())
 
   async function getTrailers() {
     await api.get("Movie/all-movies").then(x => setTrailers(x.data))
@@ -58,26 +54,9 @@ export default function Home() {
     }
   }, [trailers])
   
-  useKeyPressEvent('ArrowRight', handleNext)
-  useKeyPressEvent('ArrowLeft', handlePrevius)
-
-  function handlePrevius() {
-    const index = trailers.indexOf(current)
-    if(index == 0) {
-      return
-    }
-    setCurrent(trailers[index-1])
-  }
-
-  function handleNext() {
-    const index = trailers.indexOf(current)
-    if(index >= trailers.length) {
-      return
-    }
-    setCurrent(trailers[index+1])
-  }
 
   function handleListTrailers(index : number) {
+    isLoading
     setCurrent(trailers[index])
   }
 
@@ -86,7 +65,7 @@ export default function Home() {
       <Header searchTitle={() => {}}/>
       <div className='container flex'>
         <div className={style.listTrailer}>
-          <h3>All Trailers</h3>
+          <h3>All Favorites</h3>
           <ul>
           {
             trailers.map(x => { 
@@ -134,57 +113,11 @@ export default function Home() {
           </div>
           <div>  
             <div className={style.xxx}>
-              <Button text='Voltar' type='button' disabled={isLoading || trailers.indexOf(current) === 0 ? true : false} onClick={handlePrevius}/>
-              <div className={style.movie}> 
-                {
-                  !isLoading ? (
-                    <>
-                      <iframe src={parseUrlYouTube(current.trailerUrl)} frameBorder={0} />
-                      <div className={style.movieInfo}> 
-                        <div className={style.nameYear}>
-                          <div>
-                            <h3>{current.title}</h3>
-                            <strong>{parseGenre(current.genre)}</strong>
-                          </div>
-                          <span>({format(date, 'yyyy')})</span>
-                        </div>
-                          <p>{current.description}</p>
-                      </div>
-                    </>
-                  ) : (
-                    <div className={style.loading}>
-                      <LoadingSpin size="60px" width="5px" primaryColor="#8D8D99" secondaryColor="#29292E"/>  
-                    </div>                  
-                  )
-                }
-              </div>
-              <Button text='Próximo' type='button' disabled={isLoading || trailers.indexOf(current) === trailers.length-1 ? true : false} onClick={handleNext}/>
+              <h1>Favorites</h1>
             </div>
           </div>
         </div>
       </div>
     </div>
   )
-}
-
-function parseUrlYouTube(url : string) {
-    const videoId1 = url.split(".be/")[1];
-    if(videoId1) {
-      return `https://www.youtube.com/embed/${videoId1}?&enablejsapi=0&amp;autoplay=1&amp;modestbranding=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;hd=1&amp;wmode=transparent&amp;enablejsapi=0`;
-    }
-    const videoId2 = url.split("watch?v=")[1];
-    if (videoId2) {
-      return `https://www.youtube.com/embed/${videoId2}?&enablejsapi=0&amp;autoplay=1&amp;modestbranding=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;hd=1&amp;wmode=transparent&amp;enablejsapi=0`;
-    }
-}
-
-function parseGenre(id: number) {
-  if (id === 0) return "Action"
-  else if (id === 1) return "Adventure"
-  else if (id === 2) return "Comedy"
-  else if (id === 3) return "SciFi"
-  else if (id === 4) return "Thriller"
-  else if (id === 5) return "Romance"
-  else if (id === 6) return "Horror"
-  else if (id === 7) return "Drama"
 }
