@@ -27,7 +27,6 @@ type TrailersProps = {
 export default function Home() {
 
   const [ openNewEvent, setOpenNewEvent ] = useState(false)
-  const [ openEvent, setOpenEvent ] = useState(false)
   const [ trailers, setTrailers ] = useState<TrailersProps[]>([])
   const { isAuthenticated } = useContext(AuthContext)
   const [ current, setCurrent ] = useState<TrailersProps>({} as any);
