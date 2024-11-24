@@ -213,9 +213,13 @@ export default function Home() {
                                 )
                               }
                               <Rating value={current.averageRating} style={{ maxWidth: 110 }} readOnly itemStyles={{ itemShapes: ThinRoundedStar, activeFillColor: '#cf9502', inactiveFillColor: '#c0beae'  }}/>
-                              <button onClick={() => handleFavoriteMovie(current.id)}>
-                                <HeartStraight className={style.fav} size={25} />
-                              </button>
+                              { 
+                                isAuthenticated && (
+                                  <button onClick={() => handleFavoriteMovie(current.id)}>
+                                    <HeartStraight className={style.fav} size={25} />
+                                  </button>
+                                )
+                              }
                             </div>
                           </div>
                         </div>
