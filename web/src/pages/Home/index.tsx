@@ -1,13 +1,17 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useContext, useEffect, useState } from 'react'
 import { useKeyPressEvent } from 'react-use'
 import style from './style.module.scss'
-import { MagnifyingGlass } from '@phosphor-icons/react'
+import { HeartStraight, MagnifyingGlass } from '@phosphor-icons/react'
 import Button from '../../components/Button'
 import LoadingSpin from "react-loading-spin";
 import { format } from 'date-fns'
 import { api } from '../../api/axios'
+import { Rating, ThinRoundedStar } from '@smastrom/react-rating';
 import Header from '../../components/Header'
 import NavActivityUser from '../../components/NavActivityUser'
+import Modal from '../../components/Modal'
+import { AuthContext } from '../../contexts/AuthContext'
+import toast from 'react-hot-toast'
 
 type TrailersProps = {
   id: number
@@ -16,15 +20,22 @@ type TrailersProps = {
   genre: number
   releaseDate: string
   trailerUrl: string
+  averageRating: number
+  productionCompany: string
 }
 
 export default function Home() {
 
+  const [ openNewEvent, setOpenNewEvent ] = useState(false)
+  const [ openEvent, setOpenEvent ] = useState(false)
   const [ trailers, setTrailers ] = useState<TrailersProps[]>([])
+  const { isAuthenticated } = useContext(AuthContext)
   const [ current, setCurrent ] = useState<TrailersProps>({} as any);
   const [ isLoading, setIsLoading ] = useState(true)
+  const [ isLoadingRatingMovie, setIsLoadingRatingMovie ] = useState(false)
   const [ typeSelect, setTypeSelect ] = useState("genre")
   const [ currentSelect, setCurrentSelect ] = useState("")
+  const [ rating, setRating ] = useState(0)
 
   const date = new Date(current.releaseDate || new Date())
 
@@ -79,6 +90,41 @@ export default function Home() {
 
   function handleListTrailers(index : number) {
     setCurrent(trailers[index])
+  }
+
+  async function handleRatingMovie(id : number) {
+    setIsLoadingRatingMovie(true)
+    if (rating === 0) {
+      toast.error("Select a rating to rate the movie.",)
+      setIsLoadingRatingMovie(false)
+      return
+    }
+    try {
+      alert(rating)
+      await api.post(`UserActivity/${id}/rate`, { params: { rating } })
+      toast.success("Movie retad " + rating + "⭐")
+      setRating(0)
+      setOpenNewEvent(false)
+      setIsLoadingRatingMovie(false)
+      return
+    } catch {
+      toast.error("Error rating movie.",)
+      setRating(0)
+      setOpenNewEvent(false)
+      setIsLoadingRatingMovie(false)
+      return
+    }
+  }
+
+  async function handleFavoriteMovie(id : number) {
+    try {
+      await api.post(`UserActivity/favorites/${id}`)
+      toast.success("Add favorite movie!")
+      return
+    } catch {
+      toast.error("Error add favorite movie.",)
+      return
+    }
   }
 
   return (
@@ -141,18 +187,44 @@ export default function Home() {
                     <>
                       <iframe src={parseUrlYouTube(current.trailerUrl)} frameBorder={0} />
                       <div className={style.movieInfo}> 
-                        <div className={style.nameYear}>
-                          <div>
-                            <h3>{current.title}</h3>
-                            <strong>{parseGenre(current.genre)}</strong>
+                        <div className={style.movieInfoRating}>
+                          <div className={style.nameYearInfo}>
+                              <div className={style.nameYear}>
+                                <h3>{current.title}</h3>
+                                <span>({format(date, 'yyyy')})</span>
+                              </div>
+                              <div className={style.catCompany}>
+                                <strong>[ {parseGenre(current.genre)} ]</strong>
+                                <span>{current.productionCompany}</span>
+                              </div>
                           </div>
-                          <span>({format(date, 'yyyy')})</span>
+                          <div className={style.ratingFav}>
+                            <div className={style.rating}>
+                              { 
+                                isAuthenticated && (
+                                <>
+                                  <Button text='Rate' onClick={() => setOpenNewEvent(true)} disabled={isLoadingRatingMovie} />
+                                  <Modal onClick={() => setOpenNewEvent(!openNewEvent)} isOpen={openNewEvent} title='Rating Movie'>
+                                    <div className={style.modal}>
+                                      <Rating value={rating} onChange={setRating} style={{ maxWidth: 150 }} itemStyles={{ itemShapes: ThinRoundedStar, activeFillColor: '#cf9502', inactiveFillColor: '#c0beae'  }}/>
+                                      <Button text='Rate' onClick={() => handleRatingMovie(current.id)} disabled={isLoadingRatingMovie} />
+                                    </div>
+                                  </Modal>
+                                </>
+                                )
+                              }
+                              <Rating value={current.averageRating} style={{ maxWidth: 110 }} readOnly itemStyles={{ itemShapes: ThinRoundedStar, activeFillColor: '#cf9502', inactiveFillColor: '#c0beae'  }}/>
+                              <button onClick={() => handleFavoriteMovie(current.id)}>
+                                <HeartStraight className={style.fav} size={25} />
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                          <p>{current.description}</p>
+                        <p>{current.description}</p>
                       </div>
                     </>
                   ) : (
-                    <div className={style.loading}>
+                    <div className='loading'>
                       <LoadingSpin size="60px" width="5px" primaryColor="#8D8D99" secondaryColor="#29292E"/>  
                     </div>                  
                   )

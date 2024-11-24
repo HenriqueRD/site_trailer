@@ -1,134 +1,160 @@
 @use './../../styles/var.scss';
 
 #home {
-  
-  .listTrailer {
-    margin-top: 4rem;
-    width: 220px;
-    
-    ul {
-      list-style-type: none;
-      
-      button {
-        width: 210px;
-        font-size: .9rem;
-        margin-top: 1rem;
-        transition: 200ms;
-        color: var.$text-primary;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        text-align: justify;
-        
-        &:hover {
-          font-weight: 600;
-          color: var.$white;
-        }
-        &.isActive {
-          font-size: 1rem;
-          font-weight: 600;
-          color: var.$white;
-        }
-      }
-    }
-  }
-  .content {
-    margin-top: 3rem;
-    display: flex;
-    height: 100%;    
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-  }
-  .xxx {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-  .selectCategory {
-    width: 650px;
-    padding: .5rem 1rem;
-    border-bottom: 1px solid var.$gray500;
-
-    form {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-       > div {
-        display: flex;
-        gap: 1rem;
-        select, input {
-          font-size: .9rem;
-          width: 200px;
-          background-color: var.$gray900;
-          color: var.$white;
-          padding: 0 1rem;
-          height: 32px;
-          border-radius: 4px;
-          border: 1px solid var.$gray800;
-          &.selectType  {
-            width: 100px;
-          }
-          &:hover:not(:disabled) {
-            border-color: var.$white;
-          }
-        }
-      }
-    }
-  }
-  .movie {
-    width: 650px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    
-    iframe {
-      height: 400px;
-      border-radius: 12px;
-    }
-    .movieInfo {
-      padding: 1rem;
-      border-radius: 8px;
-      display: flex;
-      align-items: start;
-      justify-content: center;
-      height: 200;
-      background-color: var.$gray600;
-      width: 100%;
-      gap: 1rem;
-      flex-direction: column;
-
-      .nameYear {
-        display: flex;
-        padding-left: 1.5rem;
-        gap: 2rem;
-        align-items: start;
-        span {
-          font-size: .9rem;
-          color: var.$text-secondary;
-        }
-        > div {
-          display: flex;
-          flex-direction: column;
-          gap: .5rem;
-
-          strong {
-            color: var.$text-secondary;
-            font-size: .8rem;
-          }
-        }
-      }
-
-      p {
-        font-size: .9rem;
-      }
-    }
-    .loading {
-      height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
+}
+#home .listTrailer {
+  margin-top: 4rem;
+  width: 220px;
+}
+#home .listTrailer ul {
+  list-style-type: none;
+}
+#home .listTrailer ul button {
+  width: 210px;
+  font-size: .9rem;
+  margin-top: 1rem;
+  transition: 200ms;
+  color: var.$text-primary;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: justify;
+}
+#home .listTrailer ul button:hover {
+  font-weight: 600;
+  color: var.$white;
+}
+#home .listTrailer ul button.isActive {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var.$white;
+}
+#home .content {
+  margin-top: 3rem;
+  display: flex;
+  height: 100%;    
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+#home .xxx {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+#home .selectCategory {
+  width: 650px;
+  padding: .5rem 1rem;
+  border-bottom: 1px solid var.$gray500;
+}
+#home form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#home form > div {
+  display: flex;
+  gap: 1rem;
+}
+#home form > div select, input {
+  font-size: .9rem;
+  width: 200px;
+  background-color: var.$gray900;
+  color: var.$white;
+  padding: 0 1rem;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid var.$gray800;
+}
+#home form > div select.selectType  {
+  width: 100px;
+}
+#home form > div select:hover  {
+  border-color: var.$white;
+}
+#home form > div input:hover  {
+  border-color: var.$white;
+}
+#home .movie {
+  width: 650px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+#home .movie iframe {
+  height: 400px;
+  border: 1px solid var.$gray800;
+  border-radius: 8px;
+}
+#home .movie .movieInfo {
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  height: 200;
+  background-color: var.$gray600;
+  width: 100%;
+  gap: 1rem;
+  flex-direction: column;
+}
+#home .movie .movieInfo .movieInfoRating {
+  display: flex;
+  width: 100%;
+  padding-right: 1rem;
+  align-items: start;
+  justify-content: space-between;
+}
+#home .movie .movieInfo .nameYearInfo {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+#home .movie .movieInfo .nameYear {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+#home .movie .movieInfo .catCompany {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+#home .movie .movieInfo .nameYearInfo span {
+  font-weight: 300;
+  font-size: .9rem;
+  color: var.$text-secondary;
+}
+#home .movie .movieInfo span > div strong {
+  color: var.$text-secondary;
+  font-size: .8rem;
+}
+#home .movie .movieInfo p {
+  font-size: .9rem;
+}
+#home .movie .movieInfo .ratingFav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+#home .movie .movieInfo .ratingFav .rating {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+#home .movie .movieInfo .ratingFav .fav {
+  color: var.$text-primary;
+}
+#home .movie .movieInfo .ratingFav .fav:hover {
+  color: var.$red500;
+}
+#home .movie .movieInfo .ratingFav .modal {
+  display: flex;
+  margin-top: 2rem;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
 }

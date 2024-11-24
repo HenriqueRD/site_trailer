@@ -58,3 +58,9 @@ button {
 h1, h2, h3 {
   color: var.$title;
 }
+.loading {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
